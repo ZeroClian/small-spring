@@ -1,4 +1,4 @@
-package cn.zeroclian.springframework;
+package cn.zeroclian.springframework.beans;
 
 /**
  * @author Justin

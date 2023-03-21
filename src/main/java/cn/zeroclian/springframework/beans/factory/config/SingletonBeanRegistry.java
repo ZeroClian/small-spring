@@ -1,4 +1,4 @@
-package cn.zeroclian.springframework.factory.config;
+package cn.zeroclian.springframework.beans.factory.config;
 
 /**
  * @author Justin

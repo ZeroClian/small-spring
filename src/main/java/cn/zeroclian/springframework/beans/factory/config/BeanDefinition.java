@@ -1,6 +1,6 @@
-package cn.zeroclian.springframework.factory.config;
+package cn.zeroclian.springframework.beans.factory.config;
 
-import cn.zeroclian.springframework.PropertyValues;
+import cn.zeroclian.springframework.beans.PropertyValues;
 
 /**
  * @author Justin

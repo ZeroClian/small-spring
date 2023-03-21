@@ -1,6 +1,6 @@
-package cn.zeroclian.springframework.factory.support;
+package cn.zeroclian.springframework.beans.factory.support;
 
-import cn.zeroclian.springframework.factory.config.BeanDefinition;
+import cn.zeroclian.springframework.beans.factory.config.BeanDefinition;
 
 /**
  * @author Justin

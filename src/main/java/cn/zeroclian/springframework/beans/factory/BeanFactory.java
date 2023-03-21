@@ -1,6 +1,6 @@
-package cn.zeroclian.springframework.factory;
+package cn.zeroclian.springframework.beans.factory;
 
-import cn.zeroclian.springframework.BeansException;
+import cn.zeroclian.springframework.beans.BeansException;
 
 /**
  * @author Justin

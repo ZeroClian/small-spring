@@ -1,4 +1,4 @@
-package cn.zeroclian.springframework;
+package cn.zeroclian.springframework.beans;
 
 import java.util.ArrayList;
 import java.util.List;

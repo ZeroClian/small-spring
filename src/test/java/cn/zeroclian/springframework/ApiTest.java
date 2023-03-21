@@ -2,9 +2,11 @@ package cn.zeroclian.springframework;
 
 import cn.zeroclian.springframework.Bean.UserDao;
 import cn.zeroclian.springframework.Bean.UserService;
-import cn.zeroclian.springframework.factory.config.BeanDefinition;
-import cn.zeroclian.springframework.factory.config.BeanReference;
-import cn.zeroclian.springframework.factory.support.DefaultListableBeanFactory;
+import cn.zeroclian.springframework.beans.PropertyValue;
+import cn.zeroclian.springframework.beans.PropertyValues;
+import cn.zeroclian.springframework.beans.factory.config.BeanDefinition;
+import cn.zeroclian.springframework.beans.factory.config.BeanReference;
+import cn.zeroclian.springframework.beans.factory.support.DefaultListableBeanFactory;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.NoOp;
 import org.junit.Test;

@@ -1,7 +1,7 @@
-package cn.zeroclian.springframework.factory.support;
+package cn.zeroclian.springframework.beans.factory.support;
 
-import cn.zeroclian.springframework.BeansException;
-import cn.zeroclian.springframework.factory.config.BeanDefinition;
+import cn.zeroclian.springframework.beans.BeansException;
+import cn.zeroclian.springframework.beans.factory.config.BeanDefinition;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.NoOp;
 

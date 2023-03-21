@@ -1,11 +1,11 @@
-package cn.zeroclian.springframework.factory.support;
+package cn.zeroclian.springframework.beans.factory.support;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.zeroclian.springframework.BeansException;
-import cn.zeroclian.springframework.PropertyValue;
-import cn.zeroclian.springframework.PropertyValues;
-import cn.zeroclian.springframework.factory.config.BeanDefinition;
-import cn.zeroclian.springframework.factory.config.BeanReference;
+import cn.zeroclian.springframework.beans.BeansException;
+import cn.zeroclian.springframework.beans.PropertyValue;
+import cn.zeroclian.springframework.beans.PropertyValues;
+import cn.zeroclian.springframework.beans.factory.config.BeanDefinition;
+import cn.zeroclian.springframework.beans.factory.config.BeanReference;
 
 import java.lang.reflect.Constructor;
 
