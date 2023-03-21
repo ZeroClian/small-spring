@@ -1,7 +1,9 @@
 package cn.zeroclian.springframework;
 
+import cn.zeroclian.springframework.Bean.UserDao;
 import cn.zeroclian.springframework.Bean.UserService;
 import cn.zeroclian.springframework.factory.config.BeanDefinition;
+import cn.zeroclian.springframework.factory.config.BeanReference;
 import cn.zeroclian.springframework.factory.support.DefaultListableBeanFactory;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.NoOp;
@@ -19,20 +21,19 @@ public class ApiTest {
     public void test_BeanFactory() {
         // 1.初始化 BeanFactory
         DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
-
-        // 2.注入bean
-        BeanDefinition beanDefinition = new BeanDefinition(UserService.class);
+        // 2.UserDao 注册
+        beanFactory.registerBeanDefinition("userDao", new BeanDefinition(UserDao.class));
+        // 3.UserService设置属性
+        PropertyValues propertyValues = new PropertyValues();
+        propertyValues.addPropertyValue(new PropertyValue("uid", "10001"));
+        propertyValues.addPropertyValue(new PropertyValue("userDao", new BeanReference("userDao")));
+        // 4.注入bean
+        BeanDefinition beanDefinition = new BeanDefinition(UserService.class, propertyValues);
         beanFactory.registerBeanDefinition("userService", beanDefinition);
-
-        // 3.第一次获取bean
+        // 5.获取bean
         UserService userService = (UserService) beanFactory.getBean("userService", "Justin");
         System.out.println(userService);
         userService.queryUserInfo();
-
-        //4.第二次获取
-        // UserService userService_singleton = (UserService) beanFactory.getBean("userService");
-        // System.out.println(userService);
-        // userService_singleton.queryUserInfo();
     }
 
     @Test
