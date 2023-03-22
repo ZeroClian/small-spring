@@ -1,19 +1,19 @@
-package cn.zeroclian.springframework.Bean;
+package cn.zeroclian.springframework.bean;
 
 /**
  * @author Justin
  */
 public class UserService {
 
-    private String uid;
+    private String uId;
     private UserDao userDao;
 
-    public String getUid() {
-        return uid;
+    public String getuId() {
+        return uId;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setuId(String uId) {
+        this.uId = uId;
     }
 
     public UserDao getUserDao() {
@@ -26,13 +26,13 @@ public class UserService {
 
 
     public void queryUserInfo() {
-        System.out.println("查询用户信息：" + userDao.queryUserName(uid));
+        System.out.println("查询用户信息：" + userDao.queryUserName(uId));
     }
 
     @Override
     public String toString() {
         return "UserService{" +
-                "uid='" + uid + '\'' +
+                "uid='" + uId + '\'' +
                 '}';
     }
 }

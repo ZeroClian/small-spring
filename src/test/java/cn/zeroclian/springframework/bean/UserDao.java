@@ -1,4 +1,4 @@
-package cn.zeroclian.springframework.Bean;
+package cn.zeroclian.springframework.bean;
 
 import java.util.HashMap;
 import java.util.Map;
