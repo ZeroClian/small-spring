@@ -18,4 +18,6 @@ public interface BeanDefinitionReader {
     void loadDeanDefinitions(Resource... resources) throws BeansException;
 
     void loadDeanDefinitions(String location) throws BeansException;
+
+    void loadBeanDefinitions(String... locations) throws BeansException;
 }
