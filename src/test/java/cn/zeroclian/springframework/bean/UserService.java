@@ -1,9 +1,12 @@
 package cn.zeroclian.springframework.bean;
 
+import cn.zeroclian.springframework.beans.factory.DisposableBean;
+import cn.zeroclian.springframework.beans.factory.InitializingBean;
+
 /**
  * @author Justin
  */
-public class UserService {
+public class UserService implements InitializingBean, DisposableBean {
 
     private String uId;
     private String company;
@@ -55,5 +58,15 @@ public class UserService {
                 ", company='" + company + '\'' +
                 ", location='" + location + '\'' +
                 '}';
+    }
+
+    @Override
+    public void destroy() throws Exception {
+        System.out.println("执行:UserService.destroy");
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        System.out.println("执行:UserService.afterPropertiesSet");
     }
 }
