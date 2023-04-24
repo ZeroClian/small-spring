@@ -2,6 +2,7 @@ package cn.zeroclian.springframework;
 
 import cn.zeroclian.springframework.bean.UserService;
 import cn.zeroclian.springframework.context.support.ClassPathXmlApplicationContext;
+import cn.zeroclian.springframework.event.CustomEvent;
 import org.junit.Test;
 import org.openjdk.jol.info.ClassLayout;
 
@@ -32,4 +33,13 @@ public class ApiTest {
         System.out.println("测试结果：");
         userService.queryUserInfo();
     }
+
+    @Test
+    public void test_event() {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring-event.xml");
+        applicationContext.publishEvent(new CustomEvent(applicationContext, 1019129009086763L, "成功了！"));
+
+        applicationContext.registerShutdownHook();
+    }
+
 }

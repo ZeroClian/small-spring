@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+
+
+    <bean class="cn.zeroclian.springframework.event.ContextRefreshedEventListener"/>
+
+    <bean class="cn.zeroclian.springframework.event.CustomerEventListener"/>
+
+    <bean class="cn.zeroclian.springframework.event.ContextClosedEventListener"/>
+
+</beans>
