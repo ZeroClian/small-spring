@@ -7,13 +7,16 @@ import cn.zeroclian.springframework.beans.factory.config.SingletonBeanRegistry;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author Justin
  */
 public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
 
-    private final Map<String, Object> singletonObjects = new HashMap<>();
+    protected static final Object NULL_OBJECT = new Object();
+
+    private final Map<String, Object> singletonObjects = new ConcurrentHashMap<>();
 
     private final Map<String, DisposableBean> disposableBeanMap = new HashMap<>();
 

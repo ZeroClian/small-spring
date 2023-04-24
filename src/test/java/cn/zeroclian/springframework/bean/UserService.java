@@ -20,7 +20,7 @@ public class UserService implements BeanNameAware, BeanClassLoaderAware, Applica
     private String company;
     private String location;
 
-    private UserDao userDao;
+    private IUserDao userDao;
 
     public String getuId() {
         return uId;
@@ -46,27 +46,27 @@ public class UserService implements BeanNameAware, BeanClassLoaderAware, Applica
         this.location = location;
     }
 
-    public UserDao getUserDao() {
+    public IUserDao getUserDao() {
         return userDao;
     }
 
-    public void setUserDao(UserDao userDao) {
+    public void setUserDao(IUserDao userDao) {
         this.userDao = userDao;
     }
 
 
     public void queryUserInfo() {
-        System.out.println("查询用户信息：" + userDao.queryUserName(uId));
+        System.out.println("查询用户信息：" + userDao.queryUserName(uId) + "," + company + "," + location);
     }
 
-    @Override
-    public String toString() {
-        return "UserService{" +
-                "uId='" + uId + '\'' +
-                ", company='" + company + '\'' +
-                ", location='" + location + '\'' +
-                '}';
-    }
+    // @Override
+    // public String toString() {
+    //     return "UserService{" +
+    //             "uId='" + uId + '\'' +
+    //             ", company='" + company + '\'' +
+    //             ", location='" + location + '\'' +
+    //             '}';
+    // }
 
     @Override
     public void setBeanClassLoader(ClassLoader classLoader) {

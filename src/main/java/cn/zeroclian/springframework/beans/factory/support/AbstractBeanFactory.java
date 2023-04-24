@@ -1,6 +1,7 @@
 package cn.zeroclian.springframework.beans.factory.support;
 
 import cn.zeroclian.springframework.beans.BeansException;
+import cn.zeroclian.springframework.beans.factory.FactoryBean;
 import cn.zeroclian.springframework.beans.factory.config.BeanDefinition;
 import cn.zeroclian.springframework.beans.factory.config.BeanPostProcessor;
 import cn.zeroclian.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -12,7 +13,7 @@ import java.util.List;
 /**
  * @author Justin
  */
-public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements ConfigurableBeanFactory {
+public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport implements ConfigurableBeanFactory {
 
     private ClassLoader beanClassLoader = ClassUtil.getDefaultClassLoader();
 
@@ -34,12 +35,26 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
     }
 
     protected <T> T doGetBean(final String name, final Object[] args) {
-        Object bean = getSingleton(name);
-        if (bean != null) {
-            return (T) bean;
+        Object shareInstance = getSingleton(name);
+        if (shareInstance != null) {
+            return (T) getObjectForBeanInstance(shareInstance, name);
         }
         BeanDefinition beanDefinition = getBeanDefinition(name);
-        return (T) createBean(name, beanDefinition, args);
+        Object bean = createBean(name, beanDefinition, args);
+        return (T) getObjectForBeanInstance(bean, name);
+    }
+
+    private Object getObjectForBeanInstance(Object beanInstance, String beanName) {
+        if (!(beanInstance instanceof FactoryBean)) {
+            return beanInstance;
+        }
+
+        Object object = getCacheObjectForFactoryBean(beanName);
+        if (object == null) {
+            FactoryBean<?> factoryBean = (FactoryBean<?>) beanInstance;
+            object = getObjectFromFactoryBean(factoryBean, beanName);
+        }
+        return object;
     }
 
     protected abstract BeanDefinition getBeanDefinition(String name) throws BeansException;
