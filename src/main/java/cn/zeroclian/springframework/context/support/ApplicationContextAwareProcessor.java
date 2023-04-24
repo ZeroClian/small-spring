@@ -3,6 +3,7 @@ package cn.zeroclian.springframework.context.support;
 import cn.zeroclian.springframework.beans.BeansException;
 import cn.zeroclian.springframework.beans.factory.config.BeanPostProcessor;
 import cn.zeroclian.springframework.context.ApplicationContext;
+import cn.zeroclian.springframework.context.ApplicationContextAware;
 
 /**
  * @author ZeroClian
@@ -18,6 +19,9 @@ public class ApplicationContextAwareProcessor implements BeanPostProcessor {
 
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+        if (bean instanceof ApplicationContextAware) {
+            ((ApplicationContextAware) bean).setApplicationContext(applicationContext);
+        }
         return bean;
     }
 
