@@ -1,10 +1,14 @@
 package cn.zeroclian.springframework;
 
+import cn.zeroclian.springframework.aop.AdvisedSupport;
+import cn.zeroclian.springframework.aop.TargetSource;
+import cn.zeroclian.springframework.aop.aspectj.AspectJExpressionPointcut;
+import cn.zeroclian.springframework.aop.framework.Cglib2AopProxy;
+import cn.zeroclian.springframework.aop.framework.JdkDynamicAopProxy;
+import cn.zeroclian.springframework.bean.IUserDao;
 import cn.zeroclian.springframework.bean.UserService;
-import cn.zeroclian.springframework.context.support.ClassPathXmlApplicationContext;
-import cn.zeroclian.springframework.event.CustomEvent;
+import cn.zeroclian.springframework.bean.UserServiceInterceptor;
 import org.junit.Test;
-import org.openjdk.jol.info.ClassLayout;
 
 /**
  * @author Justin
@@ -12,34 +16,24 @@ import org.openjdk.jol.info.ClassLayout;
 public class ApiTest {
 
     @Test
-    public void test_prototype() {
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring.xml");
-        applicationContext.registerShutdownHook();
-        UserService userService01 = applicationContext.getBean("userService", UserService.class);
-        UserService userService02 = applicationContext.getBean("userService", UserService.class);
-        System.out.println(userService01);
-        System.out.println(userService02);
-        System.out.println(userService01 + " 16进制哈希: " + Integer.toHexString(userService01.hashCode()));
-        System.out.println(ClassLayout.parseInstance(userService01).toPrintable());
-    }
+    public void test_dynamic() {
+        // 目标对象
+        IUserDao userService = new UserService();
+        // 组装代理信息
+        AdvisedSupport advisedSupport = new AdvisedSupport();
+        advisedSupport.setTargetSource(new TargetSource(userService));
+        advisedSupport.setMethodInterceptor(new UserServiceInterceptor());
+        advisedSupport.setMethodMatcher(new AspectJExpressionPointcut("execution(* cn.zeroclian.springframework.bean.IUserDao.*(..))"));
 
-    @Test
-    public void test_factory_bean() {
-        // 1.初始化 BeanFactory
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring.xml");
-        applicationContext.registerShutdownHook();
-        // 2. 调用代理方法
-        UserService userService = applicationContext.getBean("userService", UserService.class);
-        System.out.println("测试结果：");
-        userService.queryUserInfo();
-    }
+        // 代理对象(JdkDynamicAopProxy)
+        IUserDao proxy_jdk = (IUserDao) new JdkDynamicAopProxy(advisedSupport).getProxy();
+        // 测试调用
+        System.out.println("测试结果：" + proxy_jdk.queryUserInfo());
 
-    @Test
-    public void test_event() {
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring-event.xml");
-        applicationContext.publishEvent(new CustomEvent(applicationContext, 1019129009086763L, "成功了！"));
-
-        applicationContext.registerShutdownHook();
+        // 代理对象(Cglib2AopProxy)
+        IUserDao proxy_cglib = (IUserDao) new Cglib2AopProxy(advisedSupport).getProxy();
+        // 测试调用
+        System.out.println("测试结果：" + proxy_cglib.register("花花"));
     }
 
 }

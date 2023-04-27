@@ -1,98 +1,29 @@
 package cn.zeroclian.springframework.bean;
 
-import cn.zeroclian.springframework.beans.BeansException;
-import cn.zeroclian.springframework.beans.factory.BeanClassLoaderAware;
-import cn.zeroclian.springframework.beans.factory.BeanFactory;
-import cn.zeroclian.springframework.beans.factory.BeanFactoryAware;
-import cn.zeroclian.springframework.beans.factory.BeanNameAware;
-import cn.zeroclian.springframework.context.ApplicationContext;
-import cn.zeroclian.springframework.context.ApplicationContextAware;
+import java.util.Random;
 
 /**
  * @author Justin
  */
-public class UserService implements BeanNameAware, BeanClassLoaderAware, ApplicationContextAware, BeanFactoryAware {
+public class UserService implements IUserDao {
 
-    private ApplicationContext applicationContext;
-    private BeanFactory beanFactory;
 
-    private String uId;
-    private String company;
-    private String location;
-
-    private IUserDao userDao;
-
-    public String getuId() {
-        return uId;
+    public String queryUserInfo() {
+        try {
+            Thread.sleep(new Random(1).nextInt(100));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "小傅哥，100001，深圳";
     }
 
-    public void setuId(String uId) {
-        this.uId = uId;
+    public String register(String userName) {
+        try {
+            Thread.sleep(new Random(1).nextInt(100));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "注册用户：" + userName + " success！";
     }
 
-    public String getCompany() {
-        return company;
-    }
-
-    public void setCompany(String company) {
-        this.company = company;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public IUserDao getUserDao() {
-        return userDao;
-    }
-
-    public void setUserDao(IUserDao userDao) {
-        this.userDao = userDao;
-    }
-
-
-    public void queryUserInfo() {
-        System.out.println("查询用户信息：" + userDao.queryUserName(uId) + "," + company + "," + location);
-    }
-
-    // @Override
-    // public String toString() {
-    //     return "UserService{" +
-    //             "uId='" + uId + '\'' +
-    //             ", company='" + company + '\'' +
-    //             ", location='" + location + '\'' +
-    //             '}';
-    // }
-
-    @Override
-    public void setBeanClassLoader(ClassLoader classLoader) {
-        System.out.println("ClassLoader: " + classLoader);
-    }
-
-    @Override
-    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
-        this.beanFactory = beanFactory;
-    }
-
-    @Override
-    public void setBeanName(String name) {
-        System.out.println("Bean name is: " + name);
-    }
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
-    }
-
-    public ApplicationContext getApplicationContext() {
-        return applicationContext;
-    }
-
-    public BeanFactory getBeanFactory() {
-        return beanFactory;
-    }
 }
